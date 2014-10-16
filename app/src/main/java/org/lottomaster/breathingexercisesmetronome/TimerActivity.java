@@ -108,6 +108,7 @@ public class TimerActivity extends ActionBarActivity {
 
         private void OnCircleTapEvent() {
 
+            this.metronomeState = 0;
             handlerTimer.postDelayed(UpdateExerciseTimer,0);
         }
 
@@ -153,17 +154,26 @@ public class TimerActivity extends ActionBarActivity {
             @Override
             public void run() {
 
-                //// основной отсчет
-                exerciseCounter++;
-                if(exerciseCounter >= exerciseLevel) {
-                    exerciseCounter = 0;
+                if((metronomeState % 5) == 0) {
+                    //// основной отсчет
+                    exerciseCounter++;
+                    if(exerciseCounter >= exerciseLevel) {
+                        exerciseCounter = 0;
+                    }
+                    try {
+                        tvMainCounter.setText(String.valueOf(exerciseCounter));
+                        tvMainCounter.setBackgroundResource(R.drawable.ligthcircle);
+                    }catch (Exception ex) {
+                        exerciseCounter = 0;
+                    }
                 }
-                try {
-                    tvMainCounter.setText(String.valueOf(exerciseCounter));
-                }catch (Exception ex) {
-                    exerciseCounter = 0;
+                else
+                {
+                    tvMainCounter.setBackgroundResource(R.drawable.bigcircle);
                 }
-                handlerTimer.postDelayed(this, 1000);
+
+                metronomeState++;
+                handlerTimer.postDelayed(this, 200);
             }
         };
 
