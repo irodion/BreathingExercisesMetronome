@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Handler;
@@ -163,6 +164,9 @@ public class TimerActivity extends ActionBarActivity {
                     try {
                         tvMainCounter.setText(String.valueOf(exerciseCounter));
                         tvMainCounter.setBackgroundResource(R.drawable.ligthcircle);
+                        AlphaAnimation anim = new AlphaAnimation(0.5f,1.0f);
+                        anim.setDuration(200);
+                        tvMainCounter.startAnimation(anim);
                     }catch (Exception ex) {
                         exerciseCounter = 0;
                     }
