@@ -111,6 +111,7 @@ public class TimerActivity extends ActionBarActivity {
 
             this.metronomeState = 0;
             handlerTimer.postDelayed(UpdateExerciseTimer,0);
+
         }
 
         public PlaceholderFragment() {
@@ -155,7 +156,8 @@ public class TimerActivity extends ActionBarActivity {
             @Override
             public void run() {
 
-                if((metronomeState % 5) == 0) {
+
+                    tvMainCounter.setBackgroundResource(R.drawable.bigcircle);
                     //// основной отсчет
                     exerciseCounter++;
                     if(exerciseCounter >= exerciseLevel) {
@@ -164,20 +166,18 @@ public class TimerActivity extends ActionBarActivity {
                     try {
                         tvMainCounter.setText(String.valueOf(exerciseCounter));
                         tvMainCounter.setBackgroundResource(R.drawable.ligthcircle);
-                        AlphaAnimation anim = new AlphaAnimation(0.5f,1.0f);
-                        anim.setDuration(200);
+                        AlphaAnimation anim = new AlphaAnimation(0.4f,1.0f);
+                        anim.setDuration(800);
                         tvMainCounter.startAnimation(anim);
+
                     }catch (Exception ex) {
                         exerciseCounter = 0;
                     }
-                }
-                else
-                {
-                    tvMainCounter.setBackgroundResource(R.drawable.bigcircle);
-                }
+
+
 
                 metronomeState++;
-                handlerTimer.postDelayed(this, 200);
+                handlerTimer.postDelayed(this, 1000);
             }
         };
 
