@@ -7,4 +7,17 @@
     <string name="init_counter">0</string>
     <string name="init_clock">00:00</string>
     <string name="tap_to_start">Tap inside the circles to start</string>
+    <string name="tap_to_pause">Tap inside the circles to pause</string>
+    <string name="exercise_in_touch">Exercises in touch</string>
+    <string name="touches">Touches</string>
+    <string name="sound_on">Sound on</string>
+    <string name="internal_exercises_pause">Rythm</string>
+    <string name="pause_between_exercises">Pause between exercises</string>
+    <string name="pause_between_touches">Pause between touches</string>
+    <string name="header_pre_defined">Predefined level:</string>
+    <string-array name="levels">
+        <item>light</item>
+        <item>medium</item>
+        <item>normal</item>
+    </string-array>
 </resources>

@@ -2,6 +2,7 @@ package org.lottomaster.breathingexercisesmetronome;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -18,6 +19,10 @@ import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Handler;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class TimerActivity extends ActionBarActivity {
@@ -62,6 +67,9 @@ public class TimerActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent settingsActivity = new Intent(getBaseContext(),
+                    PrefFragment.class);
+            startActivity(settingsActivity);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -77,12 +85,14 @@ public class TimerActivity extends ActionBarActivity {
 
         private TextView tvMainCounter;
         private TextView tvExercise;
-
+        private TextView tvClock;
+        private Date startTime;
         Context myContext;
 
         private int exerciseCounter;
         private int exerciseLevel = 32;
         private int metronomeState = 0;
+        private int exercise = 0;
         final private Handler handlerTimer = new Handler();
 
         /**
@@ -105,11 +115,13 @@ public class TimerActivity extends ActionBarActivity {
 
             this.tvMainCounter = (TextView) getActivity().findViewById(R.id.MainRythm);
             this.tvExercise = (TextView) getActivity().findViewById(R.id.ExerciseCounter);
+            this.tvClock = (TextView) getActivity().findViewById(R.id.ExerciseClock);
         }
 
         private void OnCircleTapEvent() {
 
             this.metronomeState = 0;
+            this.startTime = new Date();
             handlerTimer.postDelayed(UpdateExerciseTimer,0);
 
         }
@@ -156,12 +168,14 @@ public class TimerActivity extends ActionBarActivity {
             @Override
             public void run() {
 
-
+                    tvClock.setText(ExerciseTime(new Date()));
                     tvMainCounter.setBackgroundResource(R.drawable.bigcircle);
                     //// основной отсчет
                     exerciseCounter++;
                     if(exerciseCounter >= exerciseLevel) {
                         exerciseCounter = 0;
+                        exercise++;
+                        tvExercise.setText(String.valueOf(exercise));
                     }
                     try {
                         tvMainCounter.setText(String.valueOf(exerciseCounter));
@@ -181,7 +195,13 @@ public class TimerActivity extends ActionBarActivity {
             }
         };
 
+        private String ExerciseTime(Date currentTime) {
 
+            DateFormat dateFormatMy = new SimpleDateFormat("HH:mm:ss");
+            Date elapsedTime = new Date(currentTime.getTime() - startTime.getTime());
+            String timeString = dateFormatMy.format(elapsedTime);
+            return timeString;
+        }
 
     }
 
