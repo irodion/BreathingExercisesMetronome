@@ -69,7 +69,12 @@ public class TimerActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             Intent settingsActivity = new Intent(getBaseContext(),
                     PrefFragment.class);
-            startActivity(settingsActivity);
+            try{
+                startActivity(settingsActivity);
+            }catch (Exception ex) {
+                return false;
+            }
+
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -1,6 +1,7 @@
 package org.lottomaster.breathingexercisesmetronome;
 
 import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
@@ -17,37 +18,42 @@ public class PrefFragment extends PreferenceActivity {
     protected void onCreate(final Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        try {
-            getClass().getMethod("getFragmentManager");
-            AddResourceApi11AndGreater();
-        } catch (NoSuchMethodException e) { //Api < 11
-            AddResourceApiLessThan11();
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            onCreatePreferenceActivity();
+        } else {
+            onCreatePreferenceFragment();
         }
     }
 
+    /**
+     * Wraps legacy {@link #onCreate(Bundle)} code for Android < 3 (i.e. API lvl
+     * < 11).
+     */
     @SuppressWarnings("deprecation")
-    protected void AddResourceApiLessThan11()
-    {
-        addPreferencesFromResource(prefAct);
+    private void onCreatePreferenceActivity() {
+        addPreferencesFromResource(R.xml.preference);
     }
 
-    @TargetApi(11)
-    protected void AddResourceApi11AndGreater()
-    {
-        getFragmentManager().beginTransaction().replace(android.R.id.content,
-                new PF()).commit();
+    /**
+     * Wraps {@link #onCreate(Bundle)} code for Android >= 3 (i.e. API lvl >=
+     * 11).
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private void onCreatePreferenceFragment() {
+        getFragmentManager().beginTransaction()
+                .replace(android.R.id.content, new MyPreferenceFragment())
+                .commit();
     }
 
-    @TargetApi(11)
-    public static class PF extends PreferenceFragment
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class MyPreferenceFragment extends PreferenceFragment
     {
         @Override
         public void onCreate(final Bundle savedInstanceState)
         {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(PrefFragment.prefAct); //outer class
-            // private members seem to be visible for inner class, and
-            // making it static made things so much easier
+            addPreferencesFromResource(R.xml.preference);
         }
     }
 }
