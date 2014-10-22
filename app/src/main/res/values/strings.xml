@@ -3,6 +3,7 @@
 
     <string name="app_name">Breathing Exercises Metronome</string>
     <string name="hello_world">Hello world!</string>
+    <string name="preferences_header">Preferences</string>
     <string name="action_settings">Settings</string>
     <string name="init_counter">0</string>
     <string name="init_clock">00:00</string>
