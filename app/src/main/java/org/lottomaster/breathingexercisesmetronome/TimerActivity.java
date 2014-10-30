@@ -88,6 +88,10 @@ public class TimerActivity extends ActionBarActivity {
      */
     public static class PlaceholderFragment extends Fragment {
 
+        private final int STATE_PAUSE_LARGE = 0;
+        private final int STATE_PULSE = 1;
+        private final int STATE_PAUSE_SMALL = 0;
+
         private TextView tvMainCounter;
         private TextView tvExercise;
         private TextView tvClock;
@@ -206,6 +210,15 @@ public class TimerActivity extends ActionBarActivity {
             Date elapsedTime = new Date(currentTime.getTime() - startTime.getTime());
             String timeString = dateFormatMy.format(elapsedTime);
             return timeString;
+        }
+
+        private int MetronomeAnimation(int metronomeState, int metronomeTick)
+        {
+
+            int tick = metronomeTick;
+
+
+            return tick;
         }
 
     }
