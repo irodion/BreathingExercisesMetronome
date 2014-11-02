@@ -88,9 +88,7 @@ public class TimerActivity extends ActionBarActivity {
      */
     public static class PlaceholderFragment extends Fragment {
 
-        private final int STATE_PAUSE_LARGE = 0;
-        private final int STATE_PULSE = 1;
-        private final int STATE_PAUSE_SMALL = 0;
+
 
         private TextView tvMainCounter;
         private TextView tvExercise;
@@ -103,6 +101,7 @@ public class TimerActivity extends ActionBarActivity {
         private int metronomeState = 0;
         private int exercise = 0;
         final private Handler handlerTimer = new Handler();
+
 
         /**
          * Setup circle on touch listener
@@ -200,7 +199,7 @@ public class TimerActivity extends ActionBarActivity {
 
 
                 metronomeState++;
-                handlerTimer.postDelayed(this, 1000);
+                handlerTimer.postDelayed(this, AnimationTimes.TIME_CLOCK);
             }
         };
 
@@ -212,17 +211,102 @@ public class TimerActivity extends ActionBarActivity {
             return timeString;
         }
 
-        private int MetronomeAnimation(int metronomeState, int metronomeTick)
-        {
+    }
 
-            int tick = metronomeTick;
+    private final static  class AnimationMode{
 
-
-            return tick;
-        }
+        public final static int ANIMATION_SINGLE  = 1;
+        public final static int ANIMATION_DOUBLED = 2;
 
     }
 
+    private final static class AnimationStates{
+
+        public final static int STATE_INIT = 0;
+        public final static int STATE_PAUSE_SINGLE = 1;
+        public final static int STATE_PULSE_SINGLE = 2;
+        public final static int STATE_PAUSE_DOUBLE = 3;
+        public final static int STATE_PULSE_DOUBLE = 4;
+        public final static int STATE_EXIT = 255;
+    }
+
+    private final static class AnimationTimes{
+
+        public final static int TIME_CLOCK = 100;
+        public final static int TIME_PAUSE_LARGE = 500;
+        public final static int TIME_PULSE_LARGE = 500;
+    }
+
+    private final class AnimationParameters{
+
+        public final int type = 0;
+        public final TextView textView = null;
+
+    }
+
+    private class AnimationFsm {
+
+        private int type;
+        private int animationInternalCounter = 0;
+        private int animationState = AnimationStates.STATE_INIT;
+        public TextView textViewCounter;
+
+        AnimationFsm(AnimationParameters params) {
+            this.type = params.type;
+            this.textViewCounter = params.textView;
+        }
+
+        public void RunAnimation() {
+
+            if (this.type == AnimationMode.ANIMATION_SINGLE) {
+                AnimationSingle();
+            } else if (this.type == AnimationMode.ANIMATION_DOUBLED) {
+                AnimationDouble();
+            }
+        }
+
+        private void AnimationSingle()
+        {
+            switch(this.animationState){
+
+                case AnimationStates.STATE_INIT:
+                    textViewCounter.setBackgroundResource(R.drawable.bigcircle);
+                    this.animationState = AnimationStates.STATE_PAUSE_SINGLE;
+                    break;
+
+                case AnimationStates.STATE_PAUSE_SINGLE:
+
+                    if (this.animationInternalCounter > AnimationTimes.TIME_PAUSE_LARGE) {
+                        textViewCounter.setBackgroundResource(R.drawable.ligthcircle);
+                        AlphaAnimation anim = new AlphaAnimation(0.4f,1.0f);
+                        anim.setDuration(AnimationTimes.TIME_PAUSE_LARGE);
+                        textViewCounter.startAnimation(anim);
+                        this.animationState = AnimationStates.STATE_PULSE_SINGLE;
+                    }
+
+                    break;
+
+                case AnimationStates.STATE_PULSE_SINGLE:
+
+                    if (this.animationInternalCounter > AnimationTimes.TIME_PULSE_LARGE) {
+                        textViewCounter.setBackgroundResource(R.drawable.bigcircle);
+                        this.animationState = AnimationStates.STATE_PAUSE_SINGLE;
+                    }
+                    this.animationState = AnimationStates.STATE_EXIT;
+
+                    break;
+
+            }
+
+            this.animationInternalCounter++;
+        }
+
+        private void AnimationDouble()
+        {
+            this.animationInternalCounter++;
+        }
+
+    }
 
 
 
