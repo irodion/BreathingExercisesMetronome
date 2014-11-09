@@ -5,7 +5,8 @@ package org.lottomaster.breathingexercisesmetronome;
  */
 public final  class AnimationMode{
 
-    public final static int ANIMATION_SINGLE  = 1;
-    public final static int ANIMATION_DOUBLED = 2;
+    public final static short ANIMATION_SINGLE  = 1;
+    public final static short ANIMATION_DOUBLED = 2;
+    public final static short ANIMATION_SMALL = 3;
 
 }

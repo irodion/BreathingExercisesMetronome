@@ -3,7 +3,26 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
   <EditTextPreference
       android:key="ExercisesInTouch"
-      android:summary=""
-      android:title="@string/exercise_in_touch" >
+      android:summary="Exercises in touch"
+      android:defaultValue="@string/exercise_touch"
+      android:title="@string/exercise_in_touch"
+      android:numeric="integer" >
   </EditTextPreference>
+  <EditTextPreference
+      android:key="TouchMax"
+      android:summary="Exercise repeats"
+      android:defaultValue="@string/exercise_repeats"
+      android:numeric="integer"
+      android:title="@string/touches" >
+  </EditTextPreference>
+  <EditTextPreference
+      android:key="TimeInExercise"
+      android:summary="@string/timeinexercisesumm"
+      android:defaultValue="@string/time_in_exercise"
+      android:numeric="integer"
+      android:title="@string/timeinexercise" >
+  </EditTextPreference>
+
+
+
 </PreferenceScreen>

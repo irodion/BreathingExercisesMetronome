@@ -16,6 +16,16 @@
     <string name="pause_between_exercises">Pause between exercises</string>
     <string name="pause_between_touches">Pause between touches</string>
     <string name="header_pre_defined">Predefined level:</string>
+    <string name="timeinexercise">Exercise period</string>
+    <string name="timeinexercisesumm">Period of one exercise</string>
+    <string name="exit">Exit</string>
+    <string name="exercise_repeats">8</string>
+    <string name="exercise_touch">4</string>
+    <string name="exercise_single">4</string>
+    <string name="exercise_double">4</string>
+    <string name="time_in_exercise">10</string>
+    <string name="time_in_small_pause">50</string>
+
     <string-array name="levels">
         <item>light</item>
         <item>medium</item>

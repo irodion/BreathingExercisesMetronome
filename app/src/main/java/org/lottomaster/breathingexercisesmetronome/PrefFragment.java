@@ -3,8 +3,11 @@ package org.lottomaster.breathingexercisesmetronome;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.text.method.DigitsKeyListener;
+import android.widget.EditText;
 
 
 /**
@@ -15,6 +18,7 @@ public class PrefFragment extends PreferenceActivity {
     private static int prefAct = R.xml.preference;
 
     @Override
+    @SuppressWarnings("deprecation")
     protected void onCreate(final Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -24,6 +28,31 @@ public class PrefFragment extends PreferenceActivity {
         } else {
             onCreatePreferenceFragment();
         }
+
+        try {
+            EditTextPreference editTextPreferenceExercises =
+                    (EditTextPreference)findPreference("ExercisesInTouch");
+            if (editTextPreferenceExercises != null) {
+                EditText editTextExercises = editTextPreferenceExercises.getEditText();
+                editTextExercises.setKeyListener(new DigitsKeyListener());
+            }
+
+            EditTextPreference editTextPreferenceTouch =
+                    (EditTextPreference)findPreference("TouchMax");
+            if (editTextPreferenceTouch != null) {
+                EditText editTextTouch = editTextPreferenceTouch.getEditText();
+                editTextTouch.setKeyListener(new DigitsKeyListener());
+            }
+
+        }
+        catch (Exception ex) {
+
+            EditText editTextExercises = ((EditTextPreference)
+                    findPreference("ExercisesInTouch")).getEditText();
+        }
+
+
+
     }
 
     /**

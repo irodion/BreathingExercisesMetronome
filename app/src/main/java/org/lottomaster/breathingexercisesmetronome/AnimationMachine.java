@@ -5,6 +5,6 @@ package org.lottomaster.breathingexercisesmetronome;
  */
 public interface AnimationMachine {
 
-    public void RunAnimation();
-
+    public short RunAnimation();
+    public void ClearToDefault();
 }

@@ -7,7 +7,9 @@ import android.widget.TextView;
  */
 public final class AnimationParameters{
 
-    public  int type = 0;
-    public  TextView textView = null;
+    public  short Type = 0;
+    public  TextView TextView = null;
+    public short MaxCounterToReset = 0;
+    public short TimeInExercise = 0;
 
 }

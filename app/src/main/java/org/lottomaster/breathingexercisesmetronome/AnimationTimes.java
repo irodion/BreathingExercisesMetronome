@@ -5,7 +5,10 @@ package org.lottomaster.breathingexercisesmetronome;
  */
 public final class AnimationTimes{
 
-    public final static int TIME_CLOCK = 100;
-    public final static int TIME_PAUSE_LARGE = 5;
-    public final static int TIME_PULSE_LARGE = 5;
+    public final static short TIME_CLOCK = 100;
+    public final static short TIME_PAUSE_LARGE = 5;
+    public final static short TIME_PULSE_LARGE = 5;
+    public final static short TIME_EXERCISE_PERIOD = 10;
+    public final static short TIME_PAUSE_TOUCH = 10;
+    public final static short TIME_PULSE_TOUCH = 10;
 }
